@@ -23,6 +23,12 @@ func main() {
 }
 
 func thumbnail(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		log.Printf("called with method %s", r.Method)
+		response(w, http.StatusMethodNotAllowed)
+		return
+	}
+
 	file, _, err := r.FormFile("pdf")
 	defer file.Close()
 	if err != nil {
