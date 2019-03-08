@@ -22,6 +22,7 @@ func main() {
 	log.Fatal(http.ListenAndServe("0.0.0.0:1337", nil))
 }
 
+// TODO: accept density and resolution as parameters
 func thumbnail(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		log.Printf("called with method %s", r.Method)
