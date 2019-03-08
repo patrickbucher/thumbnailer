@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"os/exec"
 	"strings"
 )
@@ -39,6 +40,7 @@ func thumbnail(w http.ResponseWriter, r *http.Request) {
 	}
 
 	tempFile, err := ioutil.TempFile("", "*.pdf")
+	defer os.Remove(tempFile.Name())
 	defer tempFile.Close()
 	if err != nil {
 		log.Printf("create temp file '%s' for source PDF: %v", err, tempFile.Name())
@@ -54,6 +56,7 @@ func thumbnail(w http.ResponseWriter, r *http.Request) {
 	}
 
 	thumbnail, err := ioutil.TempFile("", "*.png")
+	defer os.Remove(thumbnail.Name())
 	defer thumbnail.Close()
 	if err != nil {
 		log.Printf("create temp file '%s' for thumbnail: %v", thumbnail.Name(), err)
