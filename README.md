@@ -1,6 +1,7 @@
 # Thumbnailer
 
-Some quick and dirty thumbnailer based on ImageMagick.
+Some quick and dirty thumbnailer server based on ImageMagick and hacked
+in Go.
 
 ## Setup (ImageMagick)
 
@@ -31,13 +32,13 @@ $ go run thumbnailer.go
 $ curl -X POST -F pdf=@demo.pdf localhost:1337/thumbnail > thumbnail.png
 ```
 
-Further specify width, height, and density:
+Further specify `width`, `height`, and `density`:
 
 ```bash
 $ curl -X POST -F pdf=@demo.pdf -F width=400 -F height=566 -F density=300 \
     localhost:1337/thumbnail > thumbnail.png
 ```
 
-If both width and height are given, the aspect ratio will be ignored.
+If both `width` and `height` are given, the aspect ratio will be ignored.
 Otherwise, the missing parameter is calculated according to the input's aspect
 ratio.
