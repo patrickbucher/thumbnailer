@@ -30,3 +30,14 @@ Turn the first page of `demo.pdf` into `thumbnail.png`:
 $ go run thumbnailer.go
 $ curl -X POST -F pdf=@demo.pdf localhost:1337/thumbnail > thumbnail.png
 ```
+
+Further specify width, height, and density:
+
+```bash
+$ curl -X POST -F pdf=@demo.pdf -F width=400 -F height=566 -F density=300 \
+    localhost:1337/thumbnail > thumbnail.png
+```
+
+If both width and height are given, the aspect ratio will be ignored.
+Otherwise, the missing parameter is calculated according to the input's aspect
+ratio.
