@@ -67,10 +67,8 @@ func thumbnail(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	source := tempFile.Name() + "[0]" // [0] means first page
-	target := thumbnail.Name()
-	args = append(args, source)
-	args = append(args, target)
+	args = append(args, tempFile.Name()+"[0]") // [0] means first page
+	args = append(args, thumbnail.Name())
 	cmd := exec.Command(command, args...)
 	err = cmd.Run()
 	if err != nil {
