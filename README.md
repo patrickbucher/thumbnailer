@@ -25,10 +25,22 @@ reading PDFs instead.
 
 ## Execute
 
+```bash
+$ go run thumbnailer.go
+```
+
+### Using Docker
+
+```bash
+$ docker build . -t thumbnailer
+$ docker run -d -p 1337:1337 thumbnailer
+```
+
+## Request
+
 Turn the first page of `demo.pdf` into `thumbnail.png`:
 
 ```bash
-$ go run thumbnailer.go
 $ curl -X POST -F pdf=@demo.pdf localhost:1337/thumbnail > thumbnail.png
 ```
 
