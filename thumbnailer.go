@@ -67,6 +67,7 @@ func thumbnail(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	args = append(args, "-flatten")            // white background, no transparency
 	args = append(args, tempFile.Name()+"[0]") // [0] means first page
 	args = append(args, thumbnail.Name())
 	cmd := exec.Command(command, args...)
