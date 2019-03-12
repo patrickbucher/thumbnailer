@@ -11,6 +11,7 @@ import (
 	"os/exec"
 	"strconv"
 	"strings"
+	"time"
 )
 
 const command = "/usr/bin/convert" // ImageMagick
@@ -71,15 +72,17 @@ func thumbnail(w http.ResponseWriter, r *http.Request) {
 	args = append(args, tempFile.Name()+"[0]") // [0] means first page
 	args = append(args, thumbnail.Name())
 	cmd := exec.Command(command, args...)
+	started := time.Now()
 	err = cmd.Run()
+	finished := time.Now()
 	if err != nil {
 		log.Printf("executing '%s %v': %v", command, strings.Join(args, " "), err)
 		response(w, http.StatusInternalServerError)
 		return
 	}
-
+	duration := finished.Sub(started)
 	http.ServeFile(w, r, thumbnail.Name())
-	log.Printf("%s %s", command, strings.Join(args, " "))
+	log.Printf("%s %s [%v]", command, strings.Join(args, " "), duration)
 }
 
 func response(w http.ResponseWriter, statusCode int) {
@@ -88,6 +91,7 @@ func response(w http.ResponseWriter, statusCode int) {
 	w.Write([]byte(statusMessage))
 }
 
+// TODO: consider returning a struct with a method to create the param slice
 func parseParams(r *http.Request) ([]string, error) {
 	params := make([]string, 0)
 	width, err := parseIntParam(r, "width")
