@@ -1,0 +1,132 @@
+image_name: thumbnailer
+apiVersion: v1
+kind: List
+items:
+
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: thumbnailer-base
+    labels:
+      build: thumbnailer
+
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: thumbnailer-s2i
+    labels:
+      build: thumbnailer
+
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: thumbnailer
+    labels:
+      build: thumbnailer
+
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: thumbnailer-base
+    labels:
+      build: thumbnailer
+  spec:
+    runPolicy: Serial
+    source:
+      type: Git
+      git:
+        uri: 'https://github.com/patrickbucher/thumbnailer.git'
+    strategy:
+      type: Docker
+    output:
+      to:
+        kind: ImageStreamTag
+        name: 'thumbnailer-base:latest'
+
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: thumbnailer-s2i
+    labels:
+      build: thumbnailer
+  spec:
+    runPolicy: Serial
+    source:
+      type: Git
+      git:
+        uri: 'https://github.com/patrickbucher/thumbnailer.git'
+      contextDir: openshift # contains the Dockerfile and s2i/bin scripts
+    strategy:
+      type: Docker
+      dockerStrategy:
+        from:
+          kind: ImageStreamTag
+          name: 'thumbnailer-base:latest'
+    output:
+      to:
+        kind: ImageStreamTag
+        name: 'thumbnailer-s2i:latest'
+
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: thumbnailer
+    labels:
+      build: thumbnailer
+  spec:
+    RunPolicy: Serial
+    source:
+      type: Git
+      git:
+        uri: 'https://github.com/patrickbucher/thumbnailer.git'
+    strategy:
+      type: Source
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: 'thumbnailer-s2i:latest'
+    output:
+      to:
+        kind: ImageStreamTag
+        name: 'thumbnailer:latest'
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: thumbnailer
+    labels:
+      app: thumbnailer
+  spec:
+    ports:
+      - name: 1337-tcp
+        port: 1337
+        targetPort: 1337
+        protocol: TCP
+    selector:
+      deploymentconfig: thumbnailer
+
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    name: thumbnailer
+    labels:
+      app: thumbnailer
+  spec:
+    template:
+      metadata:
+        labels:
+          name: thumbnailer
+      spec:
+        containers:
+          - name: thumbnailer
+            image: 'thumbnailer:latest'
+            ports:
+              - containerPort: 1337
+                protocol: TCP
+    replicas: 2
+    selector:
+      name: thumbnailer
+    strategy:
+      type: Rolling
+
+# TODO: add route

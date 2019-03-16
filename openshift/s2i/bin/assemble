@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# TODO: consider using $SRC_DIR and $BIN_DIR from base image
+
 SOURCE_FILE='/tmp/src/thumbnailer.go'
 DESTINATION_FILE='/home/gopher/src/thumbnailer.go'
 TARGET_FILE='/home/gopher/bin/thumbnailer'
