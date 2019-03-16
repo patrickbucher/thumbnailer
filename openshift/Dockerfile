@@ -1,4 +1,4 @@
-FROM thumbnailer-base:latest
+FROM thumbnailer-base
 
 LABEL maintainer="Patrick Bucher <patrick.bucher@stud.hslu.ch>"
 

@@ -13,5 +13,3 @@ ENV BIN_DIR=/home/gopher/bin
 RUN mkdir $SRC_DIR && mkdir $BIN_DIR
 
 EXPOSE 1337
-
-ENTRYPOINT ["/bin/sh"]
