@@ -1,0 +1,20 @@
+#!/bin/sh
+
+cat <<EOF
+This is the thumbnailer-s2i image.
+
+To use it, install S2I: https://github.com/openshift/source-to-image
+
+Sample invocation:
+
+    s2i build https://github.com/patrickbucher/thumbnailer.git thumbnailer-s2i thumbnailer
+
+You can then run the resulting image via:
+
+    docker run -p 1337:1337 -dit thumbnailer
+
+Test (requires some sample PDF file demo.pdf):
+
+    curl -X POST -F pdf=@demo.pdf localhost:1337/thumbnail > thumbnail.png
+
+EOF
