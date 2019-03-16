@@ -91,21 +91,6 @@ items:
         name: 'thumbnailer:latest'
 
 - apiVersion: v1
-  kind: Service
-  metadata:
-    name: thumbnailer
-    labels:
-      app: thumbnailer
-  spec:
-    ports:
-      - name: 1337-tcp
-        port: 1337
-        targetPort: 1337
-        protocol: TCP
-    selector:
-      deploymentconfig: thumbnailer
-
-- apiVersion: v1
   kind: DeploymentConfig
   metadata:
     name: thumbnailer
@@ -123,10 +108,23 @@ items:
             ports:
               - containerPort: 1337
                 protocol: TCP
-    replicas: 2
+    replicas: 1
     selector:
       name: thumbnailer
     strategy:
       type: Rolling
 
-# TODO: add route
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: thumbnailer
+    labels:
+      app: thumbnailer
+  spec:
+    ports:
+      - name: 1337-tcp
+        port: 1337
+        targetPort: 1337
+        protocol: TCP
+    selector:
+      deploymentconfig: thumbnailer
