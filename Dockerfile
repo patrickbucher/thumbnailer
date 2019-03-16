@@ -14,4 +14,4 @@ RUN mkdir $SRC_DIR && mkdir $BIN_DIR
 
 EXPOSE 1337
 
-# golang:alpine -> thumbnailer-base
+ENTRYPOINT ["/bin/sh"]

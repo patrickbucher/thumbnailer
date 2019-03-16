@@ -1,4 +1,4 @@
-FROM thumbnailer-base
+FROM thumbnailer-base:latest
 
 LABEL maintainer="Patrick Bucher <patrick.bucher@stud.hslu.ch>"
 
@@ -9,8 +9,5 @@ USER 1001
 
 RUN mkdir /home/gopher/s2i
 COPY ./s2i/bin /home/gopher/s2i
-
-# already exposed?
-# EXPOSE 1337
 
 CMD ["/home/gopher/s2i/usage"]
