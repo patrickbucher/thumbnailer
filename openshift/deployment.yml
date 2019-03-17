@@ -181,7 +181,6 @@ items:
     labels:
       app: thumbnailer
   spec:
-    host: thumbnailer.192.168.42.154.nip.io
     path: /thumbnail
     port:
       targetPort: 1337-tcp
