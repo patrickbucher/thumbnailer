@@ -1,3 +1,7 @@
+# TODO
+# 1) make sure the builds are triggered automatically
+# 2) make sure the deployment pulls the local image
+
 image_name: thumbnailer
 apiVersion: v1
 kind: List
@@ -42,6 +46,15 @@ items:
       to:
         kind: ImageStreamTag
         name: 'thumbnailer-base:latest'
+    triggers:
+      - type: ConfigChange
+      - type: ImageChange
+        imageChangeParams:
+          automatic: true
+          from:
+            kind: ImageStreamTag
+            name: 'thumbnailer-base'
+
 
 - apiVersion: v1
   kind: BuildConfig
@@ -66,6 +79,14 @@ items:
       to:
         kind: ImageStreamTag
         name: 'thumbnailer-s2i:latest'
+    triggers:
+      - type: ConfigChange
+      - type: ImageChange
+        imageChangeParams:
+          automatic: true
+          from:
+            kind: ImageStreamTag
+            name: 'thumbnailer-s2i'
 
 - apiVersion: v1
   kind: BuildConfig
@@ -89,6 +110,14 @@ items:
       to:
         kind: ImageStreamTag
         name: 'thumbnailer:latest'
+    triggers:
+      - type: ConfigChange
+      - type: ImageChange
+        imageChangeParams:
+          automatic: true
+          from:
+            kind: ImageStreamTag
+            name: 'thumbnailer'
 
 - apiVersion: v1
   kind: DeploymentConfig
@@ -109,8 +138,16 @@ items:
               - containerPort: 1337
                 protocol: TCP
     replicas: 1
-    selector:
-      name: thumbnailer
+    triggers:
+      - type: 'ConfigChange'
+      - type: 'ImageChange'
+        imageChangeParams:
+          automatic: true
+          containerNames:
+            - 'thumbnailer'
+          from:
+            kind: 'ImageStreamTag'
+            name: 'thumbnailer:latest'
     strategy:
       type: Rolling
 
@@ -128,3 +165,18 @@ items:
         protocol: TCP
     selector:
       deploymentconfig: thumbnailer
+
+- apiVersion: v1
+  kind: Route
+  metadata:
+    name: thumbnailer
+    labels:
+      app: thumbnailer
+  spec:
+    host: thumbnailer.192.168.42.154.nip.io
+    path: /thumbnail
+    port:
+      targetPort: 1337-tcp
+    to:
+      kind: Service
+      name: thumbnailer
