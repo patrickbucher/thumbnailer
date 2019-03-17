@@ -45,13 +45,6 @@ items:
         name: 'thumbnailer-base:latest'
     triggers:
       - type: ConfigChange
-      - type: ImageChange
-        imageChangeParams:
-          automatic: true
-          from:
-            kind: ImageStreamTag
-            name: 'thumbnailer-base'
-
 
 - apiVersion: v1
   kind: BuildConfig
@@ -83,7 +76,7 @@ items:
           automatic: true
           from:
             kind: ImageStreamTag
-            name: 'thumbnailer-s2i'
+            name: 'thumbnailer-base:latest'
 
 - apiVersion: v1
   kind: BuildConfig
@@ -114,7 +107,7 @@ items:
           automatic: true
           from:
             kind: ImageStreamTag
-            name: 'thumbnailer'
+            name: 'thumbnailer-s2i:latest'
 
 - apiVersion: v1
   kind: DeploymentConfig
