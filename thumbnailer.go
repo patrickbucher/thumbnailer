@@ -17,8 +17,14 @@ import (
 const command = "/usr/bin/convert" // ImageMagick
 
 func main() {
+	http.HandleFunc("/canary", canary)
 	http.HandleFunc("/thumbnail", thumbnail)
 	log.Fatal(http.ListenAndServe("0.0.0.0:1337", nil))
+}
+
+func canary(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("beep, beep\n"))
 }
 
 func thumbnail(w http.ResponseWriter, r *http.Request) {
