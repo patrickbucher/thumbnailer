@@ -29,15 +29,6 @@ reading PDFs instead.
 $ go run thumbnailer.go
 ```
 
-### Using Docker
-
-TODO: Dockerfile has been rewritten in order to use s2i images for OpenShift. A separate Dockerfile must be created.
-
-```bash
-$ docker build . -t thumbnailer
-$ docker run -d -p 1337:1337 thumbnailer
-```
-
 ## Request
 
 Turn the first page of `demo.pdf` into `thumbnail.png`:
