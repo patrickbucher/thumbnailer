@@ -1,9 +1,8 @@
 #!/bin/sh
 
 SOURCE_FILE='/tmp/src/thumbnailer.go'
-DESTINATION_FILE='/home/gopher/src/thumbnailer.go'
-TARGET_FILE='/home/gopher/bin/thumbnailer'
 
+echo 'checking'
 stat "$SOURCE_FILE" > /dev/null
 if [ $? -ne 0 ]; then
     echo "$SOURCE_FILE does not exist, exiting"
@@ -11,7 +10,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo 'copying'
-cp $SOURCE_FILE $DESTINATION_FILE
+cp $SOURCE_FILE $SRC_DIR/
 
 echo 'building'
-go build -o $TARGET_FILE $DESTINATION_FILE
+go build -o $BIN_DIR/thumbnailer $SRC_DIR/thumbnailer.go

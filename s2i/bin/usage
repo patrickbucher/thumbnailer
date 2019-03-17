@@ -15,6 +15,7 @@ You can then run the resulting image via:
 
 Test (requires some sample PDF file demo.pdf):
 
+    curl localhost:1337/canary
     curl -X POST -F pdf=@demo.pdf localhost:1337/thumbnail > thumbnail.png
 
 EOF

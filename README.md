@@ -3,7 +3,7 @@
 Some quick and dirty thumbnailer server based on ImageMagick and hacked
 in Go.
 
-## Setup (ImageMagick)
+## Setup ImageMagick (on Arch Linux)
 
 Make sure ImageMagick's policy file (`/etc/ImageMagick-7/policy.xml` on Arch
 Linux) allows reading PDFs by changing

@@ -7,7 +7,8 @@ LABEL io.openshift.s2i.destination="/tmp" \
 
 USER 1001
 
-RUN mkdir /home/gopher/s2i
-COPY ./s2i/bin /home/gopher/s2i
+ENV S2I_DIR=/home/gopher/s2i
+RUN mkdir $S2I_DIR
+COPY ./bin /home/gopher/s2i
 
 CMD ["/home/gopher/s2i/usage"]
