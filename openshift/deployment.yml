@@ -35,7 +35,7 @@ items:
     source:
       type: Git
       git:
-        uri: 'git@github.com:patrickbucher/thumbnailer.git'
+        uri: 'https://github.com/patrickbucher/thumbnailer.git'
     strategy:
       type: Docker
     output:
@@ -54,7 +54,7 @@ items:
     source:
       type: Git
       git:
-        uri: 'git@github.com:patrickbucher/thumbnailer.git'
+        uri: 'https://github.com/patrickbucher/thumbnailer.git'
       contextDir: openshift # contains the Dockerfile and s2i/bin scripts
     strategy:
       type: Docker
@@ -78,7 +78,7 @@ items:
     source:
       type: Git
       git:
-        uri: 'git@github.com:patrickbucher/thumbnailer.git'
+        uri: 'https://github.com/patrickbucher/thumbnailer.git'
     strategy:
       type: Source
       sourceStrategy:
