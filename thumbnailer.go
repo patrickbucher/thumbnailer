@@ -65,7 +65,7 @@ func thumbnail(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	thumbnail, err := ioutil.TempFile("", "*.png")
+	thumbnail, err := ioutil.TempFile("", "*.jpg")
 	defer os.Remove(thumbnail.Name())
 	defer thumbnail.Close()
 	if err != nil {
@@ -75,6 +75,9 @@ func thumbnail(w http.ResponseWriter, r *http.Request) {
 	}
 
 	args = append(args, "-flatten")            // white background, no transparency
+	args = append(args, "-strip")              // remove all meta data
+	args = append(args, "-quality")            // set quality to...
+	args = append(args, "80")                  // ... 80 for lower file size
 	args = append(args, tempFile.Name()+"[0]") // [0] means first page
 	args = append(args, thumbnail.Name())
 	cmd := exec.Command(command, args...)
