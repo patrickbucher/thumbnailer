@@ -18,7 +18,8 @@ const command = "/usr/bin/convert" // ImageMagick
 func main() {
 	http.HandleFunc("/canary", canary)
 	http.HandleFunc("/thumbnail", thumbnail)
-	log.Fatal(http.ListenAndServe("0.0.0.0:1337", nil))
+	port := os.Getenv("PORT")
+	log.Fatal(http.ListenAndServe("0.0.0.0:"+PORT, nil))
 }
 
 func canary(w http.ResponseWriter, r *http.Request) {
