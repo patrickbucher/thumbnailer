@@ -19,7 +19,7 @@ func main() {
 	http.HandleFunc("/canary", canary)
 	http.HandleFunc("/thumbnail", thumbnail)
 	port := os.Getenv("PORT")
-	log.Fatal(http.ListenAndServe("0.0.0.0:"+PORT, nil))
+	log.Fatal(http.ListenAndServe("0.0.0.0:"+port, nil))
 }
 
 func canary(w http.ResponseWriter, r *http.Request) {
