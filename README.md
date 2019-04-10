@@ -18,6 +18,8 @@ $ docker build . -t thumbnailer
 $ docker run -it -p 1337:1337 thumbnailer
 ```
 
+There is also an instance running on [dumbnailer.herokuapp.com](https://dumbnailer.herokuapp.com).
+
 ## Request
 
 Turn the first page of `demo.pdf` into `thumbnail.png`:
