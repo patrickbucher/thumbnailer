@@ -113,7 +113,7 @@ func parseParams(r *http.Request) ([]string, error) {
 		return params, err
 	}
 	if width > 0 || height > 0 {
-		params = append(params, "-resize")
+		params = append(params, "-thumbnail")
 		widthStr, heightStr := "", ""
 		if width > 0 {
 			widthStr = strconv.Itoa(width)
