@@ -1,4 +1,4 @@
-package main
+package thumbnailer
 
 import (
 	"io"
@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/patrickbucher/thumbnailer"
+	"github.com/patrickbucher/thumbnailer/thumbnailparams"
 )
 
 const command = "/usr/bin/convert" // ImageMagick
@@ -34,7 +34,7 @@ func thumbnail(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	params, err := thumbnailer.ParseParams(r)
+	params, err := thumbnailparams.ParseParams(r)
 	if err != nil {
 		log.Printf("parsing params from multipart request: %v", err)
 		response(w, http.StatusBadRequest)

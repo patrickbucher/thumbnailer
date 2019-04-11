@@ -1,4 +1,4 @@
-package thumbnailer
+package thumbnailparams
 
 import (
 	"fmt"
