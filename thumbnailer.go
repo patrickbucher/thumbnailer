@@ -1,4 +1,4 @@
-package thumbnailer
+package main
 
 import (
 	"io"
