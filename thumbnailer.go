@@ -75,11 +75,12 @@ func thumbnail(w http.ResponseWriter, r *http.Request) {
 	}
 
 	inputArg := tempFile.Name() + "[0]" // [0] means first page
-	args := params.AsArgs("-flatten", "-strip", inputArg, thumbnail.Name())
+	args := params.AsArgs("-flatten", "-strip", "-debug", "All", inputArg, thumbnail.Name())
 	cmd := exec.Command(command, args...)
 
 	started := time.Now()
-	err = cmd.Run()
+	output, err := cmd.CombinedOutput()
+	log.Println(string(output))
 	finished := time.Now()
 	if err != nil {
 		log.Printf("executing '%s %v': %v", command, strings.Join(args, " "), err)
