@@ -5,13 +5,13 @@ in Go.
 
 ## Execute
 
-Using Go:
+Using Go (the `PORT` environment variable needs to be set):
 
 ```bash
-$ go run thumbnailer.go
+$ PORT=1337 go run thumbnailer.go
 ```
 
-Using Docker:
+Using Docker (the `PORT` environment variable is already set in the Dockerfile):
 
 ```bash
 $ docker build . -t thumbnailer
