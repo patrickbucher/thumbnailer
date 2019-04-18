@@ -1,4 +1,4 @@
-# Thumbnailer
+# Thumbnaileo
 
 Some quick and dirty thumbnailer server based on ImageMagick and hacked
 in Go.
@@ -17,8 +17,6 @@ Using Docker (the `PORT` environment variable is already set in the Dockerfile):
 $ docker build . -t thumbnailer
 $ docker run -it -p 1337:1337 thumbnailer
 ```
-
-There is also an instance running on [dumbnailer.herokuapp.com](https://dumbnailer.herokuapp.com).
 
 ## Request
 
