@@ -1,4 +1,4 @@
-# Thumbnaileo
+# Thumbnailer
 
 Some quick and dirty thumbnailer server based on ImageMagick and hacked
 in Go.
